@@ -11,6 +11,14 @@ sudo systemctl enable docker
 
 sudo usermod -aG docker $USER 
 
+# ==========================================================
+DKSTOP_ALIAS='alias dkstop="docker stop \$(docker ps -aq) && docker rm -f \$(docker ps -aq)"'
+
+# 사용자의 ~/.bashrc 파일에 alias 추가
+# grep으로 중복 추가 방지 후, 해당 alias가 없으면 추가합니다.
+grep -qxF "$DKSTOP_ALIAS" ~/.bashrc || echo "$DKSTOP_ALIAS" >> ~/.bashrc
+# ==========================================================
+
 "================================================"
 echo "✅ 설치 완료 및 버전 확인 결과"
 echo "================================================"

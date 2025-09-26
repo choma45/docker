@@ -2,8 +2,14 @@
 
 이 프로젝트는 Docker 컨테이너를 사용하여 여러 서비스를 배포합니다.
 
+<<<<<<< HEAD
 ## 사전 설정 
 sudo dnf -y install git
+=======
+## 사전 설정
+sudo dnf install -y git
+
+>>>>>>> 095065ac020162fe725c40ecde6040314acb4c7a
 ## 1단계: 프로젝트 클론 
 ```bash 
 git clone [https://github.com/choma45/docker.git](https://github.com/choma45/docker.git)

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   dns-server:
     image: pmg29/my-dns-server:v1.0

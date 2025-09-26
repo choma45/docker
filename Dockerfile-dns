@@ -1,0 +1,7 @@
+FROM rockylinux:9
+RUN yum update -y && yum install bind -y
+COPY named.conf /etc/named.conf
+COPY named.zone /var/named/named.zone
+EXPOSE 53/tcp
+EXPOSE 53/udp
+CMD ["/usr/sbin/named", "-g", "-c", "/etc/named.conf"]

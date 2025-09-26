@@ -1,0 +1,14 @@
+# Rocky Linux 9 기반 이미지 사용
+FROM rockylinux:9
+
+# Postfix, Dovecot 패키지 설치
+RUN yum update -y && yum install postfix dovecot -y
+
+# 메일 서버 호스트네임 및 도메인 설정
+RUN postconf -e 'myhostname = mail.example.com' && postconf -e 'mydomain = example.com'
+
+# 주요 메일 관련 포트 노출
+EXPOSE 25 110 143 465 587 993 995
+
+# 컨테이너 시작 시 시스템 서비스를 실행 (priviliged 옵션 필요)
+CMD ["/usr/lib/systemd/systemd"]

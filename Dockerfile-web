@@ -1,0 +1,5 @@
+FROM rockylinux:9
+RUN yum update -y && yum install nginx -y 
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

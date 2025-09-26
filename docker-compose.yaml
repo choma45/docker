@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  dns-server:
+    image: pmg29/my-dns-server:v1.0
+    container_name: dns-server
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+
+
+  web-server:
+    image: pmg29/my-web-server:v1.0
+    container_name: web-server
+    ports:
+      - "80:80"
+  
+  ftp-server:
+    image: pmg29/my-ftp-server:v1.0
+    container_name: ftp-server
+    ports:
+      - "21:21"
+      - "40000-40000:40000-40000"
+    volumes:
+      - ./vsftpd.conf:/etc/vsftpd/vsftpd.conf
+      - ./user_list:/etc/vsftpd/user_list
+      - ./ftpdata:/home/ftpuser
+
+  mail-server:
+    image: pmg29/my-mail-server:v1.0
+    container_name: mail-server
+    privileged: true
+    ports:
+      - "25:25"
+      - "110:110"
+      - "143:143"

@@ -1,0 +1,16 @@
+# Rocky Linux 9 기반 이미지 사용
+FROM rockylinux:9
+
+# vsftpd 패키지 설치 및 사용자 생성
+RUN yum update -y && yum install vsftpd -y
+RUN useradd -m ftpuser && echo "ftpuser:password" | chpasswd
+
+# 호스트 PC에서 작성한 설정 파일 복사
+COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY user_list /etc/vsftpd/user_list
+
+# 21번 포트 노출
+EXPOSE 21
+
+# vsftpd를 백그라운드로 실행하고, 컨테이너를 유지
+CMD ["sh", "-c", "/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf & tail -f /dev/null"]

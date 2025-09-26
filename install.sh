@@ -12,13 +12,22 @@ sudo systemctl enable docker
 sudo usermod -aG docker $USER 
 
 # ==========================================================
+# ★★★ dkstop alias 설정 수정된 부분 ★★★
+# ==========================================================
 DKSTOP_ALIAS='alias dkstop="docker stop \$(docker ps -aq) && docker rm -f \$(docker ps -aq)"'
 
-# 사용자의 ~/.bashrc 파일에 alias 추가
-# grep으로 중복 추가 방지 후, 해당 alias가 없으면 추가합니다.
-grep -qxF "$DKSTOP_ALIAS" ~/.bashrc || echo "$DKSTOP_ALIAS" >> ~/.bashrc
-# ==========================================================
+# 스크립트를 sudo로 실행한 사용자 이름 (예: docker)을 가져옵니다.
+TARGET_USER=${SUDO_USER:-$(whoami)}
 
+# 해당 사용자의 .bashrc 파일 경로를 정의합니다.
+TARGET_BASHRC="/home/$TARGET_USER/.bashrc"
+
+# 사용자의 .bashrc 파일에 alias 추가
+grep -qxF "$DKSTOP_ALIAS" "$TARGET_BASHRC" 2>/dev/null || echo "$DKSTOP_ALIAS" >> "$TARGET_BASHRC"
+
+# .bashrc 파일의 소유권이 root로 남아있지 않도록 해당 사용자에게 변경 (중요)
+chown $TARGET_USER:$TARGET_USER "$TARGET_BASHRC" 2>/dev/null
+# ==========================================================
 "================================================"
 echo "✅ 설치 완료 및 버전 확인 결과"
 echo "================================================"

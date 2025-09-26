@@ -28,7 +28,6 @@ grep -qxF "$DKSTOP_ALIAS" "$TARGET_BASHRC" 2>/dev/null || echo "$DKSTOP_ALIAS" >
 # .bashrc 파일의 소유권이 root로 남아있지 않도록 해당 사용자에게 변경 (중요)
 chown $TARGET_USER:$TARGET_USER "$TARGET_BASHRC" 2>/dev/null
 # ==========================================================
-"================================================"
 echo "✅ 설치 완료 및 버전 확인 결과"
 echo "================================================"
 
